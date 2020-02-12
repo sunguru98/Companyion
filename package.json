@@ -1,0 +1,37 @@
+{
+  "name": "companyion",
+  "version": "1.0.0",
+  "description": "A application to view their employee history",
+  "main": "server.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "jest",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/sunguru98/Companyion.git"
+  },
+  "author": "Sundeep Charan Ramkumar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sunguru98/Companyion/issues"
+  },
+  "homepage": "https://github.com/sunguru98/Companyion#readme",
+  "devDependencies": {
+    "jest": "^25.1.0",
+    "nodemon": "^2.0.2",
+    "supertest": "^4.0.2"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "express-validator": "^6.3.1",
+    "jsonwebtoken": "^8.5.1",
+    "morgan": "^1.9.1",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.8.11"
+  }
+}
