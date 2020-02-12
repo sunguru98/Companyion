@@ -4,6 +4,10 @@ const { sign } = require('jsonwebtoken');
 
 const employeeSchema = new Schema({
   name: { type: String, required: true },
+  country: { type: String, required: true },
+  city: { type: String, required: true },
+  state: { type: String, required: true },
+  address: { type: String, required: true },
   password: { type: String, required: true },
   accessToken: String,
   email: { type: String, required: true }
@@ -30,7 +34,7 @@ employeeSchema.methods.getAccessToken = async function() {
 
 employeeSchema.statics.findByEmailAndPassword = async (email, password) => {
   try {
-    const employee = await employee.findOne({ email });
+    const employee = await Employee.findOne({ email });
     if (!employee) throw new Error('Invalid credentials');
     const isMatched = await compare(password, employee.password);
     if (!isMatched) throw new Error('Invalid credentials');

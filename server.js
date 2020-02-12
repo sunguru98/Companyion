@@ -4,7 +4,6 @@ const morgan = require('morgan');
 const { config } = require('dotenv');
 config();
 const db = require('./db');
-db.connectReal();
 const employeeRoutes = require('./routes/employeeRoutes');
 
 const app = express();
@@ -24,5 +23,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 app.listen(PORT, () => {
-  console.log(`Server started on PORT ${PORT}`);
+  db.connectReal();
 });
+
+module.exports = app;

@@ -14,6 +14,18 @@ const router = Router();
 // @access - Public
 router.post(
   '/signup',
+  check('country', 'Country is required')
+    .not()
+    .isEmpty(),
+  check('state', 'State is required')
+    .not()
+    .isEmpty(),
+  check('city', 'City is required')
+    .not()
+    .isEmpty(),
+  check('address', 'Address is required')
+    .not()
+    .isEmpty(),
   check('email', 'Email is required')
     .not()
     .isEmpty(),

@@ -9,19 +9,17 @@ module.exports = {
         return res
           .status(400)
           .send({ statusCode: 400, message: errors.array() });
-      const { email, name, password } = req.body;
-      let employee = await Employee.findOne({ email });
+      let employee = await Employee.findOne({ email: req.body.email });
       if (employee)
         return res
           .status(400)
           .send({ statusCode: 400, message: 'Employee already exists' });
-      else employee = await Employee.create({ email, name, password });
+      else employee = await Employee.create({ ...req.body });
       const accessToken = `Bearer ${await employee.getAccessToken()}`;
       return res
         .status(201)
         .send({ statusCode: 201, employee, accessToken, expiresIn: '24h' });
     } catch (err) {
-      console.log(err);
       return res.status(500).json({ statusCode: 500, message: 'Server Error' });
     }
   },
@@ -47,6 +45,7 @@ module.exports = {
         expiresIn: '24h'
       });
     } catch (err) {
+      console.log(err)
       return res.status(500).send({ statusCode: 500, message: 'Server Error' });
     }
   },
