@@ -18,7 +18,6 @@ module.exports = {
       await company.save();
       return res.status(201).send({ statusCode: 201, company });
     } catch (err) {
-      console.log(err);
       return res.status(500).send({ statusCode: 500, message: 'Server Error' });
     }
   },
@@ -66,7 +65,6 @@ module.exports = {
         expiresIn: '24h'
       });
     } catch (err) {
-      console.log(err);
       return res.status(500).send({ statusCode: 500, message: 'Server Error' });
     }
   },

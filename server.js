@@ -5,6 +5,7 @@ const { config } = require('dotenv');
 config();
 const db = require('./db');
 const employeeRoutes = require('./routes/employeeRoutes');
+const companyRoutes = require('./routes/companyRoutes');
 
 const app = express();
 const PORT = parseInt(process.env.PORT) || 5000;
@@ -14,6 +15,7 @@ if (process.env.NODE_ENV === 'development') app.use(morgan('dev'));
 
 // Routes
 app.use('/employee', employeeRoutes);
+app.use('/company', companyRoutes);
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, 'client', 'build')));
