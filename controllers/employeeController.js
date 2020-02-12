@@ -1,7 +1,28 @@
 const { validationResult } = require('express-validator');
 const Employee = require('../models/Employee');
+const Company = require('../models/Company');
 
 module.exports = {
+  async createCompany(req, res) {
+    try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty())
+        return res
+          .status(400)
+          .send({ statusCode: 400, message: errors.array() });
+      if (await Company.findOne({ name: req.body.name }))
+        return res
+          .status(400)
+          .send({ statusCode: 400, message: 'Company already exists' });
+      const company = new Company({ ...req.body });
+      await company.save();
+      return res.status(201).send({ statusCode: 201, company });
+    } catch (err) {
+      console.log(err);
+      return res.status(500).send({ statusCode: 500, message: 'Server Error' });
+    }
+  },
+
   async registerEmployee(req, res) {
     try {
       const errors = validationResult(req);
@@ -45,7 +66,7 @@ module.exports = {
         expiresIn: '24h'
       });
     } catch (err) {
-      console.log(err)
+      console.log(err);
       return res.status(500).send({ statusCode: 500, message: 'Server Error' });
     }
   },

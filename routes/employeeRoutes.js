@@ -4,10 +4,35 @@ const authenticate = require('../middlewares/authenticate');
 const {
   registerEmployee,
   loginEmployee,
-  logoutEmployee
+  logoutEmployee,
+  createCompany
 } = require('../controllers/employeeController');
 
 const router = Router();
+
+// @route - POST /user/company/create
+// @desc - Create a company
+// @access - Private (Auth)
+router.post(
+  '/company/create',
+  authenticate,
+  check('country', 'Country is required')
+    .not()
+    .isEmpty(),
+  check('state', 'State is required')
+    .not()
+    .isEmpty(),
+  check('city', 'City is required')
+    .not()
+    .isEmpty(),
+  check('address', 'Address is required')
+    .not()
+    .isEmpty(),
+  check('name', 'Name is required')
+    .not()
+    .isEmpty(),
+  createCompany
+);
 
 // @route - POST /user/signup
 // @desc - Registers a user
@@ -26,13 +51,13 @@ router.post(
   check('address', 'Address is required')
     .not()
     .isEmpty(),
+  check('name', 'Name is required')
+    .not()
+    .isEmpty(),
   check('email', 'Email is required')
     .not()
     .isEmpty(),
   check('email', 'Email is invalid').isEmail(),
-  check('name', 'Name is required')
-    .not()
-    .isEmpty(),
   check('password', 'Password is required')
     .not()
     .isEmpty(),
