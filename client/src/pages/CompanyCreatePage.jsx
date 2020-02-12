@@ -5,7 +5,7 @@ import Spinner from '../components/Spinner';
 import InputField from '../components/InputField';
 import Helmet from 'react-helmet';
 
-const CompanyCreatePage = ({ createCompany, companyLoading }) => {
+const CompanyCreatePage = ({ createCompany, companyLoading, companies }) => {
   const [formState, setFormState] = useState({
     country: '',
     state: '',
@@ -33,7 +33,7 @@ const CompanyCreatePage = ({ createCompany, companyLoading }) => {
       </Helmet>
       <form className='Form' onSubmit={handleSubmit}>
         <h1>Create Company</h1>
-        {companyLoading ? (
+        {companyLoading || companies.length ? (
           <Spinner />
         ) : (
           <Fragment>
@@ -95,9 +95,12 @@ const CompanyCreatePage = ({ createCompany, companyLoading }) => {
   );
 };
 
-const mapStateToProps = ({ company: { companyLoading, errors } }) => ({
+const mapStateToProps = ({
+  company: { companyLoading, errors, companies }
+}) => ({
   companyLoading,
-  errors
+  errors,
+  companies
 });
 
 const mapDispatchToProps = { createCompany: createCompany };

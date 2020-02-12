@@ -1,14 +1,15 @@
 import React from 'react';
 import CompaniesListItem from './CompaniesListItem';
 
-const RouteList = ({ companies }) => {
+const CompanyList = ({ companies }) => {
+  console.log(companies);
   return (
     <div style={{ marginTop: '2rem', overflow: 'scroll', maxHeight: '62vh' }}>
       {companies.map(company => (
-        <CompaniesListItem key={company._id} company={company.company} />
+        <CompaniesListItem key={company._id} company={company} />
       ))}
     </div>
   );
 };
 
-export default RouteList;
+export default CompanyList;

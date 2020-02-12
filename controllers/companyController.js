@@ -90,7 +90,10 @@ module.exports = {
         );
         comp.presentEmployees.push(employee.id);
         await comp.save();
-        return res.status(202).send({ statusCode: 202, employee });
+        const newEmp = await employee
+          .populate('companies.company', 'name')
+          .execPopulate();
+        return res.status(202).send({ statusCode: 202, employee: newEmp });
       }
     } catch (err) {
       if (err.name === 'CastError')
@@ -141,7 +144,10 @@ module.exports = {
       );
       comp.leftAt = new Date();
       await employee.save();
-      return res.status(202).send({ statusCode: 202, employee });
+      const newEmp = await employee
+        .populate('companies.company', 'name')
+        .execPopulate();
+      return res.status(202).send({ statusCode: 202, employee: newEmp });
     } catch (err) {
       if (err.name === 'CastError')
         return res

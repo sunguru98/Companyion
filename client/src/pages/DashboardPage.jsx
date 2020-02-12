@@ -1,13 +1,13 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 
 import Spinner from '../components/Spinner';
-import RightSideContent from '../components/RightSideContent';
 import LeftSideContent from '../components/LeftSideContent';
 import Onboarding from '../components/Onboarding';
 
 const DashboardPage = ({ employee, companyLoading }) => {
+  console.log(employee);
   return (
     <section className='page horizontal'>
       <Helmet>
@@ -16,10 +16,7 @@ const DashboardPage = ({ employee, companyLoading }) => {
       </Helmet>
       {!companyLoading && employee.companies ? (
         employee.companies.length ? (
-          <Fragment>
-            <LeftSideContent companies={employee.companies} />
-            <RightSideContent />
-          </Fragment>
+          <LeftSideContent companies={employee.companies} />
         ) : (
           <Onboarding />
         )

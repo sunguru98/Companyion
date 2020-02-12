@@ -5,7 +5,7 @@ import Spinner from '../components/Spinner';
 import { fetchCompanyById } from '../redux/actions/companyActions';
 import Helmet from 'react-helmet';
 
-const RouteUpdatePage = ({
+const CompanyDetailPage = ({
   match,
   companyLoading,
   company,
@@ -67,4 +67,4 @@ const mapStateToProps = ({ company: { companyLoading, company } }) => ({
 
 const connector = connect(mapStateToProps, { fetchCompanyById });
 
-export default connector(RouteUpdatePage);
+export default connector(CompanyDetailPage);

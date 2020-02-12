@@ -1,27 +1,36 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState, Fragment, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { joinCompany } from '../redux/actions/companyActions';
+import { joinCompany, fetchCompanies } from '../redux/actions/companyActions';
 import Spinner from '../components/Spinner';
 import SelectField from '../components/SelectField';
 import Helmet from 'react-helmet';
 
-const CompanyCreatePage = ({ joinCompany, companyLoading, companies }) => {
+const CompanyJoinPage = ({
+  joinCompany,
+  companyLoading,
+  companies,
+  fetchCompanies
+}) => {
+  useEffect(() => {
+    fetchCompanies();
+  }, [fetchCompanies]);
+
   const [formState, setFormState] = useState({
     company: '',
-    joinedAt: null
+    joinedAt: ''
   });
 
   const { company, joinedAt } = formState;
 
   const handleSubmit = e => {
     e.preventDefault();
-    joinCompany({ ...formState });
+    joinCompany(company, joinedAt);
   };
 
   const handleChange = e => {
     setFormState({ ...formState, [e.target.name]: e.target.value });
   };
-
+  console.log(companies);
   return (
     <section className='page'>
       <Helmet>
@@ -30,22 +39,26 @@ const CompanyCreatePage = ({ joinCompany, companyLoading, companies }) => {
       </Helmet>
       <form className='Form' onSubmit={handleSubmit}>
         <h1>Join Company</h1>
-        {companyLoading ? (
+        {companyLoading || !companies ? (
           <Spinner />
         ) : (
           <Fragment>
             <SelectField
+              required
               onChange={handleChange}
               name='company'
               value={company}
               optionValues={[
                 { text: 'Select a company', isDisabled: true, value: '' },
-                companies.map(c => ({ text: c.name, value: c._id }))
+                ...companies.map(c => ({ text: c.name, value: c._id }))
               ]}
             />
             <input
+              required
+              style={{ marginTop: '3rem' }}
               type='date'
               value={joinedAt}
+              onChange={handleChange}
               name='joinedAt'
               placeholder='Please select your joining date'
             />
@@ -53,16 +66,10 @@ const CompanyCreatePage = ({ joinCompany, companyLoading, companies }) => {
               className={`Button ${companyLoading ? 'disabled' : ''}`}
               disabled={companyLoading}
               type='submit'
-              value='Create Route'
+              value='Join Company'
             />
           </Fragment>
         )}
-        <input
-          className={`Button ${companyLoading ? 'disabled' : ''}`}
-          disabled={companyLoading}
-          type='submit'
-          value='Create Route'
-        />
       </form>
     </section>
   );
@@ -73,7 +80,7 @@ const mapStateToProps = ({ company: { companyLoading, companies } }) => ({
   companies
 });
 
-const mapDispatchToProps = { joinCompany: joinCompany };
+const mapDispatchToProps = { joinCompany, fetchCompanies };
 const connector = connect(mapStateToProps, mapDispatchToProps);
 
-export default connector(CompanyCreatePage);
+export default connector(CompanyJoinPage);

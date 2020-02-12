@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Onboarding = () => {
+const Onboarding = ({ companies }) => {
   return (
     <div className='Form'>
       <h1 style={{ textAlign: 'center' }}>
@@ -15,6 +15,7 @@ const Onboarding = () => {
             Create Route
           </button>
         </Link>
+
         <Link style={{ marginLeft: '2rem' }} to='/company/join'>
           <button
             style={{ width: '100%', cursor: 'pointer' }}

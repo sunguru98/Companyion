@@ -59,7 +59,10 @@ export const createCompany = companyObj => async dispatch => {
 export const joinCompany = (companyId, joinedAt) => async dispatch => {
   try {
     dispatch({ type: 'SET_COMPANY_LOADING', payload: true });
-    await Axios.patch(`/company/${companyId}`, { joinedAt });
+    const {
+      data: { employee }
+    } = await Axios.patch(`/company/${companyId}`, { joinedAt });
+    dispatch({ type: 'SET_USER', payload: employee });
     alert('Company joined successfully');
     history.push('/');
   } catch (err) {
@@ -76,9 +79,12 @@ export const joinCompany = (companyId, joinedAt) => async dispatch => {
 export const quitCompany = (companyId, joinedAt) => async dispatch => {
   try {
     dispatch({ type: 'SET_COMPANY_LOADING', payload: true });
-    await Axios.delete(`/company/${companyId}`, { joinedAt });
+    const {
+      data: { employee }
+    } = await Axios.delete(`/company/${companyId}`, { joinedAt });
+    dispatch({ type: 'SET_USER', payload: employee });
     alert('Company quit successfully');
-    history.push('/');
+    history.push('/dashboard');
   } catch (err) {
     const message = err.response.data.message;
     if (message) alert(message);

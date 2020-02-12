@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import RouteDetail from './RouteDetail';
+import CompanyDetail from './RouteDetail';
 
-const RightSideContent = ({ route }) => {
+const RightSideContent = ({ company }) => {
   return (
     <div
       style={{
@@ -11,12 +11,12 @@ const RightSideContent = ({ route }) => {
         flexDirection: 'column',
         height: '100%'
       }}>
-      {route && <RouteDetail route={route} />}
+      {company && <CompanyDetail company={company} />}
     </div>
   );
 };
 
-const mapStateToProps = ({ route: { route } }) => ({ route });
+const mapStateToProps = ({ company: { company } }) => ({ company });
 const connector = connect(mapStateToProps);
 
 export default connector(RightSideContent);

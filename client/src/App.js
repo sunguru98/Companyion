@@ -7,10 +7,10 @@ import Header from './components/Header';
 import LandingPage from './pages/LandingPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
-import RouteUpdatePage from './pages/RouteUpdatePage';
+import RouteUpdatePage from './pages/CompanyDetailPage';
 import DashboardPage from './pages/DashboardPage';
 import CompanyCreatePage from './pages/CompanyCreatePage';
-import RouteBatchUploadPage from './pages/RouteBatchUploadPage';
+import CompanyJoinPage from './pages/CompanyJoinPage';
 
 import { connect } from 'react-redux';
 import history from './redux/createHistory';
@@ -39,20 +39,11 @@ const App = ({ accessToken }) => {
       <Switch>
         <Route exact path='/' component={LandingPage} />
         <PrivateRoute exact path='/company/new' component={CompanyCreatePage} />
+        <PrivateRoute exact path='/company/join' component={CompanyJoinPage} />
         <Route exact path='/company/:companyId' component={RouteUpdatePage} />
         <Route exact path='/login' component={LoginPage} />
         <Route exact path='/register' component={RegisterPage} />
         <PrivateRoute exact path='/dashboard' component={DashboardPage} />
-        <PrivateRoute
-          exact
-          path='/route/create/multi'
-          component={RouteBatchUploadPage}
-        />
-        <PrivateRoute
-          exact
-          path='/route/edit/:routeId'
-          component={RouteUpdatePage}
-        />
         <Redirect to='/' />
       </Switch>
     </React.Fragment>
