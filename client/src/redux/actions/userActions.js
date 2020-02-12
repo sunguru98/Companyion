@@ -1,5 +1,5 @@
 import Axios from 'axios';
-import history from '../createHistory'
+import history from '../createHistory';
 
 export const signInEmployee = credentials => async dispatch => {
   try {
@@ -7,7 +7,7 @@ export const signInEmployee = credentials => async dispatch => {
     const {
       data: { user, accessToken }
     } = await Axios.post('/employee/login', credentials);
-    Axios.defaults.headers.common['Authorization'] = data.accessToken;
+    Axios.defaults.headers.common['Authorization'] = accessToken;
     dispatch({ type: 'SET_USER', payload: user });
     dispatch({ type: 'SET_ACCESS_TOKEN', payload: accessToken });
     alert('Signin successful');
@@ -27,7 +27,7 @@ export const registerEmployee = employee => async dispatch => {
     const {
       data: { user, accessToken }
     } = await Axios.post('/employee/signup', employee);
-    Axios.defaults.headers.common['Authorization'] = data.accessToken;
+    Axios.defaults.headers.common['Authorization'] = accessToken;
     dispatch({ type: 'SET_USER', payload: user });
     dispatch({ type: 'SET_ACCESS_TOKEN', payload: accessToken });
     alert('Signin successful');
@@ -45,18 +45,18 @@ export const registerEmployee = employee => async dispatch => {
 
 export const logOutEmployee = () => async dispatch => {
   try {
-   dispatch({ type: 'RESET_COMPANY_STATE' });
+    dispatch({ type: 'RESET_COMPANY_STATE' });
     dispatch({ type: 'RESET_USER_STATE' });
     history.push('/');
-    Axios.delete('/employer/logout')
+    Axios.delete('/employer/logout');
   } catch (err) {
     const message = err.response.data.message;
     if (message) alert(message);
-    else alert(err.message)
+    else alert(err.message);
   } finally {
-    yield dispatch({
+    dispatch({
       type: 'SET_USER_LOADING',
       payload: false
     });
   }
-}
+};

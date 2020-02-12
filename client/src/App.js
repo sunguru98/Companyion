@@ -1,26 +1,68 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from 'react';
+import Axios, { AxiosError } from 'axios';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+import PrivateRoute from './components/PrivateRoute';
+import Header from './components/Header';
+import LandingPage from './pages/LandingPage';
+import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
+import RouteUpdatePage from './pages/RouteUpdatePage';
+import DashboardPage from './pages/DashboardPage';
+import RouteCreatePage from './pages/RouteCreatePage';
+import RouteBatchUploadPage from './pages/RouteBatchUploadPage';
+
+import { connect, ConnectedProps } from 'react-redux';
+import { RootState } from './types/redux/reducers/rootReducer.type';
+import history from './redux/createHistory';
+import store from './redux/store';
+
+const App = ({ accessToken }) => {
+  useEffect(() => {
+    if (accessToken) {
+    }
+    Axios.defaults.headers.common['Authorization'] = accessToken;
+  });
+  Axios.interceptors.response.use(
+    res => Promise.resolve(res),
+    err => {
+      if (err.response.data.statusCode === 403) {
+        alert('Session Expired. Kindly login again');
+        store.dispatch({ type: 'RESET_USER_STATE' });
+        store.dispatch({ type: 'RESET_COMPANY_STATE' });
+        history.push('/login');
+      } else throw err;
+    }
   );
-}
+  return (
+    <React.Fragment>
+      <Header />
+      <Switch>
+        <Route exact path='/' component={LandingPage} />
+        <Route exact path='/login' component={LoginPage} />
+        <Route exact path='/register' component={RegisterPage} />
+        <PrivateRoute exact path='/dashboard' component={DashboardPage} />
+        <PrivateRoute exact path='/route/create' component={RouteCreatePage} />
+        <PrivateRoute
+          exact
+          path='/route/create/multi'
+          component={RouteBatchUploadPage}
+        />
+        <PrivateRoute
+          exact
+          path='/route/edit/:routeId'
+          component={RouteUpdatePage}
+        />
+        <Redirect to='/' />
+      </Switch>
+    </React.Fragment>
+  );
+};
 
-export default App;
+const mapStateToProps = state => ({
+  accessToken: state.user.accessToken
+});
+
+const connector = connect(mapStateToProps);
+
+export default connector(App);
