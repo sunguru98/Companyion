@@ -1,11 +1,11 @@
 import React from 'react';
 import CompaniesListItem from './CompaniesListItem';
 
-const RouteList = ({ routes }) => {
+const RouteList = ({ companies }) => {
   return (
     <div style={{ marginTop: '2rem', overflow: 'scroll', maxHeight: '62vh' }}>
-      {routes.map(route => (
-        <CompaniesListItem key={route._id} routeObj={route} />
+      {companies.map(company => (
+        <CompaniesListItem key={company._id} company={company.company} />
       ))}
     </div>
   );

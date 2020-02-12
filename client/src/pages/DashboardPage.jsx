@@ -1,4 +1,4 @@
-import React, { useEffect, Fragment } from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 
@@ -31,10 +31,10 @@ const DashboardPage = ({ employee, companyLoading }) => {
 };
 
 const mapStateToProps = state => ({
-  employee: state.employee.employee,
+  employee: state.employee.user,
   companyLoading: state.company.companyLoading
 });
 
-const connector = connect(mapStateToProps, { fetchCompanies });
+const connector = connect(mapStateToProps);
 
 export default connector(DashboardPage);

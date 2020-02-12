@@ -8,18 +8,18 @@ const Onboarding = () => {
         Get started with your first route.
       </h1>
       <div style={{ width: '90%', display: 'flex', justifyContent: 'center' }}>
-        <Link to='/route/create'>
+        <Link to='/company/new'>
           <button
             style={{ width: '100%', cursor: 'pointer' }}
             className='Button big'>
             Create Route
           </button>
         </Link>
-        <Link style={{ marginLeft: '2rem' }} to='/route/create/multi'>
+        <Link style={{ marginLeft: '2rem' }} to='/company/join'>
           <button
             style={{ width: '100%', cursor: 'pointer' }}
             className='Button big yellow'>
-            Upload CSV
+            Join company
           </button>
         </Link>
       </div>

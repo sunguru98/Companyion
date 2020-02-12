@@ -9,7 +9,7 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import RouteUpdatePage from './pages/RouteUpdatePage';
 import DashboardPage from './pages/DashboardPage';
-import RouteCreatePage from './pages/RouteCreatePage';
+import CompanyCreatePage from './pages/CompanyCreatePage';
 import RouteBatchUploadPage from './pages/RouteBatchUploadPage';
 
 import { connect } from 'react-redux';
@@ -38,11 +38,11 @@ const App = ({ accessToken }) => {
       <Header />
       <Switch>
         <Route exact path='/' component={LandingPage} />
+        <PrivateRoute exact path='/company/new' component={CompanyCreatePage} />
         <Route exact path='/company/:companyId' component={RouteUpdatePage} />
         <Route exact path='/login' component={LoginPage} />
         <Route exact path='/register' component={RegisterPage} />
         <PrivateRoute exact path='/dashboard' component={DashboardPage} />
-        <PrivateRoute exact path='/route/create' component={RouteCreatePage} />
         <PrivateRoute
           exact
           path='/route/create/multi'

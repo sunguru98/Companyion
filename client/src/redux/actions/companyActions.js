@@ -2,7 +2,7 @@ import Axios from 'axios';
 import history from '../createHistory';
 
 export const fetchCompanies = () => async dispatch => {
-  console.log('Hi there')
+  console.log('Hi there');
   try {
     dispatch({ type: 'SET_COMPANY_LOADING', payload: true });
     const {
@@ -43,11 +43,13 @@ export const createCompany = companyObj => async dispatch => {
       data: { company }
     } = await Axios.post('/employee/company/create', companyObj);
     dispatch({ type: 'SET_COMPANY', payload: company });
+    alert('Company created successfully');
+    history.push('/dashboard');
   } catch (err) {
     const message = err.response.data.message;
     if (message) alert(message);
     else if (Array.isArray(message)) {
-      dispatch({ type: 'SET_COMPANY_ERRORS', payload: message });
+      dispatch({ type: 'SET_COMPANY_ERRORS', payload: JSON.parse(message) });
     } else alert(err.message);
   } finally {
     dispatch({ type: 'SET_COMPANY_LOADING', payload: false });

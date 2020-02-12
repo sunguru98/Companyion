@@ -1,26 +1,24 @@
 import React, { useState, Fragment } from 'react';
-
 import { connect } from 'react-redux';
-
+import { createCompany } from '../redux/actions/companyActions';
 import Spinner from '../components/Spinner';
 import InputField from '../components/InputField';
 import Helmet from 'react-helmet';
 
-const RouteCreatePage = ({ createRoute, companyLoading }) => {
+const CompanyCreatePage = ({ createCompany, companyLoading }) => {
   const [formState, setFormState] = useState({
-    name: '',
-    stops: [],
-    routeType: '',
-    direction: '',
-    status: '',
-    stopName: ''
+    country: '',
+    state: '',
+    city: '',
+    address: '',
+    name: ''
   });
 
-  const { name, stops, routeType, direction, status } = formState;
+  const { name, address, city, state, country } = formState;
 
   const handleSubmit = e => {
     e.preventDefault();
-    createRoute({ name, routeType, direction, stops, status });
+    createCompany({ ...formState });
   };
 
   const handleChange = e => {
@@ -46,15 +44,6 @@ const RouteCreatePage = ({ createRoute, companyLoading }) => {
               required
               name='name'
               value={name}
-              onChange={handleChange}
-            />
-            <InputField
-              placeholder='Email'
-              isTextArea={false}
-              type='email'
-              required
-              name='email'
-              value={email}
               onChange={handleChange}
             />
             <InputField
@@ -99,19 +88,19 @@ const RouteCreatePage = ({ createRoute, companyLoading }) => {
           className={`Button ${companyLoading ? 'disabled' : ''}`}
           disabled={companyLoading}
           type='submit'
-          value='Create Route'
+          value='Create Company'
         />
       </form>
     </section>
   );
 };
 
-const mapStateToProps = ({ route: { companyLoading, errors } }) => ({
+const mapStateToProps = ({ company: { companyLoading, errors } }) => ({
   companyLoading,
   errors
 });
 
-// const mapDispatchToProps = { createRoute: createRoute };
-const connector = connect(mapStateToProps, {});
+const mapDispatchToProps = { createCompany: createCompany };
+const connector = connect(mapStateToProps, mapDispatchToProps);
 
-export default connector(RouteCreatePage);
+export default connector(CompanyCreatePage);

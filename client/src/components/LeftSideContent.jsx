@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import CompaniesList from './CompaniesList';
 import '../styles/components/LeftSideContent.scss';
 
-const LeftSideContent = ({ routes }) => {
+const LeftSideContent = ({ companies }) => {
   return (
     <div className='LeftSideContent'>
       <div className='LeftSideContent__buttons'>
@@ -14,7 +14,7 @@ const LeftSideContent = ({ routes }) => {
           <button className='Button yellow'>Upload CSV File</button>
         </Link>
       </div>
-      <CompaniesList routes={routes} />
+      <CompaniesList companies={companies} />
     </div>
   );
 };

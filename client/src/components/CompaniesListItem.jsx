@@ -1,23 +1,28 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { quitCompany } from '../redux/actions/companyActions';
 import { withRouter } from 'react-router-dom';
+
 import '../styles/components/CompaniesListItem.scss';
 import { ReactComponent as EditIcon } from '../edit.svg';
 import { ReactComponent as DeleteIcon } from '../trash.svg';
 
 const CompaniesListItem = ({
-  company: { name, _id },
+  company: {
+    company: { name, _id },
+    joinedAt,
+    leftAt
+  },
   history,
-  getSingleRoute,
-  deleteRoute
+  quitCompany
 }) => {
   const handleClick = () => {
-    getSingleRoute(_id);
+    history.push(`/company/${_id}`);
   };
 
   const handleDelete = e => {
     e.stopPropagation();
-    if (window.confirm('Confirm delete route?')) deleteRoute(_id);
+    if (window.confirm('Confirm quit company?')) quitCompany(_id);
   };
 
   const handleUpdate = e => {
@@ -29,7 +34,8 @@ const CompaniesListItem = ({
     <div className='CompaniesListItem' onClick={handleClick}>
       <div className='CompaniesListItem__info'>
         <h3>Name: {name}</h3>
-        <h4>Status: {status}</h4>
+        <h4>Joined At: {joinedAt}</h4>
+        {leftAt && <h4>Joined At: {joinedAt}</h4>}
       </div>
       <div className='CompaniesListItem__buttons'>
         <span className='CompaniesListItem__update' onClick={handleUpdate}>
@@ -43,7 +49,4 @@ const CompaniesListItem = ({
   );
 };
 
-// const mapDispatchToProps = { getSingleRoute, deleteRoute };
-const connector = connect(null, {});
-
-export default withRouter(connector(CompaniesListItem));
+export default withRouter(connect(null, { quitCompany })(CompaniesListItem));
