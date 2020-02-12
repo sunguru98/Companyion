@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import RouteList from './RouteList';
+import CompaniesList from './CompaniesList';
 import '../styles/components/LeftSideContent.scss';
 
 const LeftSideContent = ({ routes }) => {
@@ -14,7 +14,7 @@ const LeftSideContent = ({ routes }) => {
           <button className='Button yellow'>Upload CSV File</button>
         </Link>
       </div>
-      <RouteList routes={routes} />
+      <CompaniesList routes={routes} />
     </div>
   );
 };

@@ -27,7 +27,9 @@ module.exports = {
         return res
           .status(404)
           .send({ statusCode: 404, message: 'Company Id not found' });
-      const company = await Company.findById(companyId);
+      const company = await Company.findById(companyId)
+        .populate('presentEmployees', 'name')
+        .populate('pastEmployees', 'name');
       if (!company)
         return res
           .status(404)
@@ -88,7 +90,7 @@ module.exports = {
         );
         comp.presentEmployees.push(employee.id);
         await comp.save();
-        return res.status(202).send({ statusCode: 202, company });
+        return res.status(202).send({ statusCode: 202, employee });
       }
     } catch (err) {
       if (err.name === 'CastError')
@@ -139,7 +141,7 @@ module.exports = {
       );
       comp.leftAt = new Date();
       await employee.save();
-      return res.status(202).send({ statusCode: 202, company: comp });
+      return res.status(202).send({ statusCode: 202, employee });
     } catch (err) {
       if (err.name === 'CastError')
         return res

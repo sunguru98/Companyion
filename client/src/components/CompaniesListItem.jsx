@@ -1,12 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import '../styles/components/RouteListItem.scss';
+import '../styles/components/CompaniesListItem.scss';
 import { ReactComponent as EditIcon } from '../edit.svg';
 import { ReactComponent as DeleteIcon } from '../trash.svg';
 
-const RouteListItem = ({
-  routeObj: { name, status, _id },
+const CompaniesListItem = ({
+  company: { name, _id },
   history,
   getSingleRoute,
   deleteRoute
@@ -26,16 +26,16 @@ const RouteListItem = ({
   };
 
   return (
-    <div className='RouteListItem' onClick={handleClick}>
-      <div className='RouteListItem__info'>
+    <div className='CompaniesListItem' onClick={handleClick}>
+      <div className='CompaniesListItem__info'>
         <h3>Name: {name}</h3>
         <h4>Status: {status}</h4>
       </div>
-      <div className='RouteListItem__buttons'>
-        <span className='RouteListItem__update' onClick={handleUpdate}>
+      <div className='CompaniesListItem__buttons'>
+        <span className='CompaniesListItem__update' onClick={handleUpdate}>
           <EditIcon />
         </span>
-        <span className='RouteListItem__delete' onClick={handleDelete}>
+        <span className='CompaniesListItem__delete' onClick={handleDelete}>
           <DeleteIcon />
         </span>
       </div>
@@ -46,4 +46,4 @@ const RouteListItem = ({
 // const mapDispatchToProps = { getSingleRoute, deleteRoute };
 const connector = connect(null, {});
 
-export default withRouter(connector(RouteListItem));
+export default withRouter(connector(CompaniesListItem));

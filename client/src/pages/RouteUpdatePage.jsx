@@ -1,103 +1,70 @@
-import React, { Fragment } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
 import Spinner from '../components/Spinner';
-import InputField from '../components/InputField';
-import SelectField from '../components/SelectField';
+import { fetchCompanyById } from '../redux/actions/companyActions';
 import Helmet from 'react-helmet';
 
-const RouteUpdatePage = ({ match }) => {
+const RouteUpdatePage = ({
+  match,
+  companyLoading,
+  company,
+  fetchCompanyById
+}) => {
+  const companyId = match.params.companyId;
+  useState(() => {
+    fetchCompanyById(companyId);
+  }, []);
   return (
     <section className='page'>
       <Helmet>
-        <title>R-Care Update Route</title>
-        <meta name='description' content='Update Route page of R-Care' />
+        <title>Companyion Update Route</title>
+        <meta name='description' content='Update Route page of Companyion' />
       </Helmet>
-      {routeLoading ? (
+      {companyLoading || !company ? (
         <Spinner />
       ) : (
-        <form className='Form' onSubmit={handleSubmit}>
-          <h1>{!routeLoading ? `Update route ${routeName}` : 'Please wait'}</h1>
-          {routeLoading ? (
-            <Spinner />
-          ) : (
-            <Fragment>
-              <InputField
-                required
-                name='name'
-                type='text'
-                placeholder='Route name'
-                value={name}
-                onChange={handleChange}
-                isTextArea={false}
-              />
-              <SelectField
-                className='SelectField'
-                name='routeType'
-                required
-                value={routeType}
-                onChange={handleChange}
-                optionValues={[
-                  {
-                    value: '',
-                    text: 'Please select a route type',
-                    isDisabled: true
-                  },
-                  { value: 'ac', text: 'AC' },
-                  { value: 'general', text: 'General' }
-                ]}
-              />
-              <SelectField
-                className='SelectField'
-                name='direction'
-                required
-                value={direction}
-                onChange={handleChange}
-                optionValues={[
-                  {
-                    value: '',
-                    text: 'Please select a route direction',
-                    isDisabled: true
-                  },
-                  { value: 'up', text: 'Up' },
-                  { value: 'down', text: 'Down' }
-                ]}
-              />
-              <SelectField
-                className='SelectField'
-                name='status'
-                required
-                value={status}
-                onChange={handleChange}
-                optionValues={[
-                  {
-                    value: '',
-                    text: 'Please select a route status',
-                    isDisabled: true
-                  },
-                  { value: 'active', text: 'Active' },
-                  { value: 'inactive', text: 'Inactive' }
-                ]}
-              />
-            </Fragment>
-          )}
-          <input
-            className={`Button ${routeLoading ? 'disabled' : ''}`}
-            disabled={routeLoading}
-            type='submit'
-            value='Update Route'
-          />
-        </form>
+        <div
+          style={{
+            fontSize: '2rem',
+            textAlign: 'left',
+            background: '#7232DB',
+            borderRadius: '1.2rem',
+            padding: '1rem',
+            width: '80%',
+            height: '80vh',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexDirection: 'column',
+            color: 'white',
+            fontWeight: 'bold'
+          }}>
+          <p>Name: {company.name}</p>
+          <p>Country: {company.country}</p>
+          <p>State: {company.state}</p>
+          <p>City: {company.city}</p>
+          <p>Address: {company.address}</p>
+          <ul style={{ marginTop: '2rem' }}>
+            Employees:{' '}
+            {[
+              ...company.pastEmployees.map(e => <li key={e._id}>{e.name}</li>),
+              ...company.presentEmployees.map(e => (
+                <li key={e._id}>{e.name}</li>
+              ))
+            ]}
+          </ul>
+        </div>
       )}
     </section>
   );
 };
 
-const mapStateToProps = ({ route: { routeLoading, route } }) => ({
-  routeLoading,
-  route
+const mapStateToProps = ({ company: { companyLoading, company } }) => ({
+  companyLoading,
+  company
 });
 
-const connector = connect(mapStateToProps, {});
+const connector = connect(mapStateToProps, { fetchCompanyById });
 
 export default connector(RouteUpdatePage);

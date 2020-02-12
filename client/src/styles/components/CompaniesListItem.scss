@@ -1,6 +1,6 @@
 @import '../colors';
 
-.RouteListItem {
+.CompaniesListItem {
   padding: 1.5rem;
   display: flex;
   justify-content: space-between;
@@ -35,7 +35,7 @@
   }
 
   &__delete {
-    margin-top: .75rem;
+    margin-top: 0.75rem;
     background: $red-color;
   }
 

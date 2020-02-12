@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import Helmet from 'react-helmet';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchCompanies } from '../redux/actions/companyActions';
 
@@ -7,7 +8,6 @@ import '../styles/pages/LandingPage.scss';
 import Spinner from '../components/Spinner';
 
 const LandingPage = ({ companies, companyLoading, fetchCompanies }) => {
-  console.log(fetchCompanies);
   useEffect(() => {
     fetchCompanies();
   }, [fetchCompanies]);
@@ -29,20 +29,23 @@ const LandingPage = ({ companies, companyLoading, fetchCompanies }) => {
             gridGap: '2rem'
           }}>
           {companies.map(c => (
-            <div
-              style={{
-                color: 'white',
-                cursor: 'pointer',
-                flexDirection: 'column',
-                background: '#7232DB',
-                borderRadius: '.5rem',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-              }}>
-              <p>{c.name}</p>
-              <p>{c.country}</p>
-            </div>
+            <Link key={c._id} to={`/company/${c._id}`}>
+              <div
+                style={{
+                  height: '100%',
+                  color: 'white',
+                  cursor: 'pointer',
+                  flexDirection: 'column',
+                  background: '#7232DB',
+                  borderRadius: '.5rem',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}>
+                <p>{c.name}</p>
+                <p>{c.country}</p>
+              </div>
+            </Link>
           ))}
         </div>
       )}

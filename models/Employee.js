@@ -5,20 +5,17 @@ const { sign } = require('jsonwebtoken');
 const employeeSchema = new Schema({
   name: { type: String, required: true },
   country: { type: String, required: true },
-  companies: {
-    type: [
-      {
-        company: {
-          type: Schema.Types.ObjectId,
-          ref: 'company',
-          required: true
-        },
-        joinedAt: { type: Date, required: true },
-        leftAt: { type: Date, default: undefined }
-      }
-    ],
-    default: []
-  },
+  companies: [
+    {
+      company: {
+        type: Schema.Types.ObjectId,
+        ref: 'company',
+        required: true
+      },
+      joinedAt: { type: Date, required: true },
+      leftAt: { type: Date, default: undefined }
+    }
+  ],
   city: { type: String, required: true },
   state: { type: String, required: true },
   address: { type: String, required: true },

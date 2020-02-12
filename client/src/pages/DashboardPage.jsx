@@ -7,21 +7,17 @@ import RightSideContent from '../components/RightSideContent';
 import LeftSideContent from '../components/LeftSideContent';
 import Onboarding from '../components/Onboarding';
 
-const DashboardPage = ({ routes, routeLoading, fetchRoutes }) => {
-  useEffect(() => {
-    setTimeout(fetchRoutes, 10);
-  }, [fetchRoutes]);
-
+const DashboardPage = ({ employee, companyLoading }) => {
   return (
     <section className='page horizontal'>
       <Helmet>
         <title>R-Care Dashboard</title>
         <meta name='description' content='Dashboard page of R-Care' />
       </Helmet>
-      {!routeLoading && routes ? (
-        routes.length ? (
+      {!companyLoading && employee.companies ? (
+        employee.companies.length ? (
           <Fragment>
-            <LeftSideContent routes={routes} />
+            <LeftSideContent companies={employee.companies} />
             <RightSideContent />
           </Fragment>
         ) : (
@@ -35,14 +31,10 @@ const DashboardPage = ({ routes, routeLoading, fetchRoutes }) => {
 };
 
 const mapStateToProps = state => ({
-  companies: state.company.companies,
+  employee: state.employee.employee,
   companyLoading: state.company.companyLoading
 });
 
-// const mapDispatchToProps = {
-//   fetchRoutes
-// };
-
-const connector = connect(mapStateToProps, {});
+const connector = connect(mapStateToProps, { fetchCompanies });
 
 export default connector(DashboardPage);

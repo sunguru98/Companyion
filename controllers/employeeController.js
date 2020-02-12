@@ -35,6 +35,7 @@ module.exports = {
           .status(400)
           .send({ statusCode: 400, message: 'Employee already exists' });
       else employee = await Employee.create({ ...req.body });
+      employee = await employee.populate('companies', 'name').execPopulate();
       const accessToken = `Bearer ${await employee.getAccessToken()}`;
       return res
         .status(201)
@@ -58,9 +59,12 @@ module.exports = {
           .status(401)
           .send({ statusCode: 401, message: 'Invalid credentials' });
       const accessToken = `Bearer ${await employee.getAccessToken()}`;
+      let emp = await employee
+        .populate('companies.company', 'name')
+        .execPopulate();
       return res.send({
         statusCode: 200,
-        employee,
+        employee: emp,
         accessToken,
         expiresIn: '24h'
       });

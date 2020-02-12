@@ -4,10 +4,9 @@ import { connect } from 'react-redux';
 
 import Spinner from '../components/Spinner';
 import InputField from '../components/InputField';
-import SelectField from '../components/SelectField';
 import Helmet from 'react-helmet';
 
-const RouteCreatePage = ({ createRoute, routeLoading }) => {
+const RouteCreatePage = ({ createRoute, companyLoading }) => {
   const [formState, setFormState] = useState({
     name: '',
     stops: [],
@@ -31,73 +30,74 @@ const RouteCreatePage = ({ createRoute, routeLoading }) => {
   return (
     <section className='page'>
       <Helmet>
-        <title>R-Care Create Route</title>
+        <title>Companyion - Add Company</title>
         <meta name='description' content='Create page of R-Care' />
       </Helmet>
       <form className='Form' onSubmit={handleSubmit}>
-        <h1>{!routeLoading ? 'Create a new route' : 'Please wait'}</h1>
-        {routeLoading ? (
+        <h1>Create Company</h1>
+        {companyLoading ? (
           <Spinner />
         ) : (
           <Fragment>
             <InputField
-              name='name'
+              placeholder='Name'
+              isTextArea={false}
               type='text'
-              placeholder='Route name'
+              required
+              name='name'
               value={name}
               onChange={handleChange}
+            />
+            <InputField
+              placeholder='Email'
               isTextArea={false}
-            />
-            <SelectField
-              className='SelectField'
-              name='routeType'
-              value={routeType}
+              type='email'
+              required
+              name='email'
+              value={email}
               onChange={handleChange}
-              optionValues={[
-                {
-                  value: '',
-                  text: 'Please select a route type',
-                  isDisabled: true
-                },
-                { value: 'ac', text: 'AC' },
-                { value: 'general', text: 'General' }
-              ]}
             />
-            <SelectField
-              className='SelectField'
-              name='direction'
-              value={direction}
+            <InputField
+              placeholder='Country'
+              isTextArea={false}
+              type='text'
+              required
+              name='country'
+              value={country}
               onChange={handleChange}
-              optionValues={[
-                {
-                  value: '',
-                  text: 'Please select a route direction',
-                  isDisabled: true
-                },
-                { value: 'up', text: 'Up' },
-                { value: 'down', text: 'Down' }
-              ]}
             />
-            <SelectField
-              className='SelectField'
-              name='status'
-              value={status}
+            <InputField
+              placeholder='State'
+              isTextArea={false}
+              type='text'
+              required
+              name='state'
+              value={state}
               onChange={handleChange}
-              optionValues={[
-                {
-                  value: '',
-                  text: 'Please select a route status',
-                  isDisabled: true
-                },
-                { value: 'active', text: 'Active' },
-                { value: 'inactive', text: 'Inactive' }
-              ]}
+            />
+            <InputField
+              placeholder='City'
+              isTextArea={false}
+              type='text'
+              required
+              name='city'
+              value={city}
+              onChange={handleChange}
+            />
+            <InputField
+              placeholder='Address'
+              isTextArea={false}
+              type='text'
+              required
+              name='address'
+              value={address}
+              onChange={handleChange}
             />
           </Fragment>
         )}
         <input
-          className={`Button ${routeLoading ? 'disabled' : ''}`}
-          disabled={routeLoading}
+          className={`Button ${companyLoading ? 'disabled' : ''}`}
+          disabled={companyLoading}
           type='submit'
           value='Create Route'
         />
@@ -106,8 +106,8 @@ const RouteCreatePage = ({ createRoute, routeLoading }) => {
   );
 };
 
-const mapStateToProps = ({ route: { routeLoading, errors } }) => ({
-  routeLoading,
+const mapStateToProps = ({ route: { companyLoading, errors } }) => ({
+  companyLoading,
   errors
 });
 

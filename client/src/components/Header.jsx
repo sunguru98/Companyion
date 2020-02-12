@@ -6,7 +6,7 @@ import '../styles/components/Header.scss';
 
 const Header = ({ user, logOutEmployee }) => (
   <header className='Header'>
-    <Link to={user ? '/dashboard' : '/'} className='Header__logo'>
+    <Link to='/' className='Header__logo'>
       <span className='Header__logo purple'>Companyion</span>
     </Link>
     <div className='Header__buttons'>

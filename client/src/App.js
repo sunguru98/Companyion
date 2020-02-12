@@ -37,12 +37,12 @@ const App = ({ accessToken }) => {
     <React.Fragment>
       <Header />
       <Switch>
-        <Route exact path='/' compnent={LandingPage} />
-        <Route exact path={`/route/:routeId`} component={RouteUpdatePage} />
+        <Route exact path='/' component={LandingPage} />
+        <Route exact path='/company/:companyId' component={RouteUpdatePage} />
         <Route exact path='/login' component={LoginPage} />
         <Route exact path='/register' component={RegisterPage} />
         <PrivateRoute exact path='/dashboard' component={DashboardPage} />
-        <PrivateRoute exact path='' component={RouteCreatePage} />
+        <PrivateRoute exact path='/route/create' component={RouteCreatePage} />
         <PrivateRoute
           exact
           path='/route/create/multi'
