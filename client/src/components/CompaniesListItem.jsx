@@ -29,9 +29,7 @@ const CompaniesListItem = ({
       <div className='CompaniesListItem__info'>
         <h3>Name: {name}</h3>
         <h4>Joined At: {new Date(joinedAt).toLocaleDateString()}</h4>
-        {leftAt && (
-          <h4>Joined At: {new Date(joinedAt).toLocaleDateString()}</h4>
-        )}
+        {leftAt && <h4>Left At: {new Date(joinedAt).toLocaleDateString()}</h4>}
       </div>
       <div className='CompaniesListItem__buttons'>
         {!leftAt ? (

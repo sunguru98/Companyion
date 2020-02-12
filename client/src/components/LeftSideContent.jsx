@@ -9,10 +9,10 @@ const LeftSideContent = ({ companies }) => {
     <div className='LeftSideContent'>
       <div className='LeftSideContent__buttons'>
         <Link to='/company/create'>
-          <button className='Button'>Create new route</button>
+          <button className='Button'>Create new Company</button>
         </Link>
         <Link to='/company/join'>
-          <button className='Button yellow'>Upload CSV File</button>
+          <button className='Button yellow'>Join a Company</button>
         </Link>
       </div>
       <CompaniesList companies={companies} />

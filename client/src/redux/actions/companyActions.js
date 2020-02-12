@@ -64,7 +64,7 @@ export const joinCompany = (companyId, joinedAt) => async dispatch => {
     } = await Axios.patch(`/company/${companyId}`, { joinedAt });
     dispatch({ type: 'SET_USER', payload: employee });
     alert('Company joined successfully');
-    history.push('/');
+    history.push('/dashboard');
   } catch (err) {
     const message = err.response.data.message;
     if (message) alert(message);
