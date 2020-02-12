@@ -7,8 +7,7 @@ import '../styles/components/Header.scss';
 const Header = ({ user, logOutEmployee }) => (
   <header className='Header'>
     <Link to={user ? '/dashboard' : '/'} className='Header__logo'>
-      <span className='Header__logo'>R</span>
-      <span className='Header__logo purple'>-Care</span>
+      <span className='Header__logo purple'>Companyion</span>
     </Link>
     <div className='Header__buttons'>
       {!user ? (
@@ -38,7 +37,7 @@ const Header = ({ user, logOutEmployee }) => (
 );
 
 const mapStateToProps = state => ({
-  user: state.user.user
+  user: state.employee.user
 });
 
 const mapDispatchToProps = {

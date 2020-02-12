@@ -10,7 +10,7 @@ const PrivateRoute = ({ user, component: Component, ...rest }) => {
   );
 };
 
-const mapStateToProps = ({ user: { user } }) => ({ user });
+const mapStateToProps = ({ employee: { user } }) => ({ user });
 const connector = connect(mapStateToProps);
 
 export default connector(PrivateRoute);

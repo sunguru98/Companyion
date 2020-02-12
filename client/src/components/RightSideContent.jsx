@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import MapComponent from './MapComponent';
 import RouteDetail from './RouteDetail';
 
 const RightSideContent = ({ route }) => {
@@ -12,7 +11,6 @@ const RightSideContent = ({ route }) => {
         flexDirection: 'column',
         height: '100%'
       }}>
-      <MapComponent route={route} />
       {route && <RouteDetail route={route} />}
     </div>
   );

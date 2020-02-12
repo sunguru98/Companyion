@@ -1,5 +1,4 @@
 import React, { useState, Fragment } from 'react';
-import { LoginPayload } from '../types/redux/sagas/user.type';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { signInEmployee } from '../redux/actions/userActions';
@@ -8,13 +7,10 @@ import Spinner from '../components/Spinner';
 import Helmet from 'react-helmet';
 
 const LoginPage = ({ user, signInEmployee, userLoading }) => {
-  const [formState, setFormState] =
-    useState <
-    LoginPayload >
-    {
-      email: '',
-      password: ''
-    };
+  const [formState, setFormState] = useState({
+    email: '',
+    password: ''
+  });
 
   const { email, password } = formState;
   const handleSubmit = e => {
@@ -71,7 +67,7 @@ const LoginPage = ({ user, signInEmployee, userLoading }) => {
   );
 };
 
-const mapStateToProps = ({ user: { user, userLoading } }) => ({
+const mapStateToProps = ({ employee: { user, userLoading } }) => ({
   user,
   userLoading
 });

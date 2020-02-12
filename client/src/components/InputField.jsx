@@ -57,7 +57,7 @@ const InputField = ({
 };
 
 const connector = connect(state => ({
-  errors: state.user.errors
+  errors: state.employee.errors
 }));
 
 export default connector(InputField);

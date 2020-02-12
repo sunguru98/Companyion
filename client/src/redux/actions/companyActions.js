@@ -2,11 +2,12 @@ import Axios from 'axios';
 import history from '../createHistory';
 
 export const fetchCompanies = () => async dispatch => {
+  console.log('Hi there')
   try {
     dispatch({ type: 'SET_COMPANY_LOADING', payload: true });
     const {
       data: { companies }
-    } = await Axios.get('/company', credentials);
+    } = await Axios.get('/company');
     dispatch({ type: 'SET_COMPANIES', payload: companies });
   } catch (err) {
     const message = err.response.data.message;
@@ -22,7 +23,7 @@ export const fetchCompanyById = companyId => async dispatch => {
     dispatch({ type: 'SET_COMPANY_LOADING', payload: true });
     const {
       data: { company }
-    } = await Axios.get(`/company/${companyId}`, employee);
+    } = await Axios.get(`/company/${companyId}`);
     dispatch({ type: 'SET_COMPANY', payload: company });
   } catch (err) {
     const message = err.response.data.message;
@@ -35,12 +36,12 @@ export const fetchCompanyById = companyId => async dispatch => {
   }
 };
 
-export const createCompany = company => async dispatch => {
+export const createCompany = companyObj => async dispatch => {
   try {
     dispatch({ type: 'SET_COMPANY_LOADING', payload: true });
     const {
       data: { company }
-    } = await Axios.post('/employee/company/create', company);
+    } = await Axios.post('/employee/company/create', companyObj);
     dispatch({ type: 'SET_COMPANY', payload: company });
   } catch (err) {
     const message = err.response.data.message;

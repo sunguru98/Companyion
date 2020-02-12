@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import Axios, { AxiosError } from 'axios';
+import Axios from 'axios';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 import PrivateRoute from './components/PrivateRoute';
@@ -12,8 +12,7 @@ import DashboardPage from './pages/DashboardPage';
 import RouteCreatePage from './pages/RouteCreatePage';
 import RouteBatchUploadPage from './pages/RouteBatchUploadPage';
 
-import { connect, ConnectedProps } from 'react-redux';
-import { RootState } from './types/redux/reducers/rootReducer.type';
+import { connect } from 'react-redux';
 import history from './redux/createHistory';
 import store from './redux/store';
 
@@ -38,11 +37,12 @@ const App = ({ accessToken }) => {
     <React.Fragment>
       <Header />
       <Switch>
-        <Route exact path='/' component={LandingPage} />
+        <Route exact path='/' compnent={LandingPage} />
+        <Route exact path={`/route/:routeId`} component={RouteUpdatePage} />
         <Route exact path='/login' component={LoginPage} />
         <Route exact path='/register' component={RegisterPage} />
         <PrivateRoute exact path='/dashboard' component={DashboardPage} />
-        <PrivateRoute exact path='/route/create' component={RouteCreatePage} />
+        <PrivateRoute exact path='' component={RouteCreatePage} />
         <PrivateRoute
           exact
           path='/route/create/multi'
@@ -60,7 +60,7 @@ const App = ({ accessToken }) => {
 };
 
 const mapStateToProps = state => ({
-  accessToken: state.user.accessToken
+  accessToken: state.employee.accessToken
 });
 
 const connector = connect(mapStateToProps);

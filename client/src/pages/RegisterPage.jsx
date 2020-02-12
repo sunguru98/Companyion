@@ -10,15 +10,36 @@ const LoginPage = ({ user, registerEmployee, userLoading }) => {
   const [formState, setFormState] = useState({
     email: '',
     password: '',
+    country: '',
+    state: '',
+    city: '',
+    address: '',
     name: '',
     cPassword: ''
   });
 
-  const { email, password, name, cPassword } = formState;
+  const {
+    email,
+    password,
+    name,
+    cPassword,
+    address,
+    city,
+    state,
+    country
+  } = formState;
   const handleSubmit = e => {
     e.preventDefault();
     if (password !== cPassword) return alert('Passwords do not match');
-    registerEmployee({ email, password, name });
+    registerEmployee({
+      email,
+      password,
+      name,
+      country,
+      city,
+      address,
+      state
+    });
   };
 
   const handleChange = e => {
@@ -58,6 +79,42 @@ const LoginPage = ({ user, registerEmployee, userLoading }) => {
               onChange={handleChange}
             />
             <InputField
+              placeholder='Country'
+              isTextArea={false}
+              type='text'
+              required
+              name='country'
+              value={country}
+              onChange={handleChange}
+            />
+            <InputField
+              placeholder='State'
+              isTextArea={false}
+              type='text'
+              required
+              name='state'
+              value={state}
+              onChange={handleChange}
+            />
+            <InputField
+              placeholder='City'
+              isTextArea={false}
+              type='text'
+              required
+              name='city'
+              value={city}
+              onChange={handleChange}
+            />
+            <InputField
+              placeholder='Address'
+              isTextArea={false}
+              type='text'
+              required
+              name='address'
+              value={address}
+              onChange={handleChange}
+            />
+            <InputField
               placeholder='Password'
               isTextArea={false}
               type='password'
@@ -83,7 +140,7 @@ const LoginPage = ({ user, registerEmployee, userLoading }) => {
   );
 };
 
-const mapStateToProps = ({ user: { user, userLoading } }) => ({
+const mapStateToProps = ({ employee: { user, userLoading } }) => ({
   user,
   userLoading
 });

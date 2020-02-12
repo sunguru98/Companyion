@@ -17,7 +17,7 @@ export default (state = initialState, action) => {
     case 'SET_COMPANIES':
       return {
         ...state,
-        routes: [...payload]
+        companies: [...payload]
       };
     case 'SET_COMPANY_LOADING':
       return {

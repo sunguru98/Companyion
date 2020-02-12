@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 
 import Spinner from '../components/Spinner';
@@ -6,38 +6,7 @@ import InputField from '../components/InputField';
 import SelectField from '../components/SelectField';
 import Helmet from 'react-helmet';
 
-const RouteUpdatePage = ({ updateRoute, routeLoading, route, match }) => {
-  const [routeName, setRouteName] = useState('');
-  const [formState, setFormState] = useState({
-    name: '',
-    stops: [],
-    routeType: '',
-    direction: '',
-    status: ''
-  });
-
-  useEffect(() => {
-    if (route) {
-      const { name, routeType, status, stops, direction } = route;
-      setRouteName(name);
-      setFormState(() => ({ name, routeType, status, stops, direction }));
-    }
-  }, [route]);
-
-  const { stops, name, status, routeType, direction } = formState;
-
-  const handleSubmit = e => {
-    e.preventDefault();
-    updateRoute(
-      { name, routeType, direction, stops, status },
-      match.params.routeId
-    );
-  };
-
-  const handleChange = e => {
-    setFormState({ ...formState, [e.target.name]: e.target.value });
-  };
-
+const RouteUpdatePage = ({ match }) => {
   return (
     <section className='page'>
       <Helmet>

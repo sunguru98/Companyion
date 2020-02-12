@@ -1,5 +1,4 @@
 import React from 'react';
-import { Route } from '../types/redux/reducers/routeReducer.type';
 import RouteListItem from './RouteListItem';
 
 const RouteList = ({ routes }) => {

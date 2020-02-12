@@ -1,37 +1,60 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
-import { signInEmployee, registerEmployee } from '../redux/actions/userActions';
-import { Redirect, Link } from 'react-router-dom';
-import '../styles/pages/LandingPage.scss';
+import { fetchCompanies } from '../redux/actions/companyActions';
 
-const LandingPage = ({ user }) => {
-  return user ? (
-    <Redirect to='/dashboard' />
-  ) : (
-    <section className='LandingPage page'>
+import '../styles/pages/LandingPage.scss';
+import Spinner from '../components/Spinner';
+
+const LandingPage = ({ companies, companyLoading, fetchCompanies }) => {
+  console.log(fetchCompanies);
+  useEffect(() => {
+    fetchCompanies();
+  }, [fetchCompanies]);
+  return (
+    <section style={{ padding: '1rem' }} className='LandingPage page'>
       <Helmet>
         <title>R-Care Home</title>
         <meta name='description' content='Home page of R-Care' />
       </Helmet>
-      <h1 className='LandingPage__title xl'>Easy route management.</h1>
-      <p className='LandingPage__description'>
-        Change the way you view routes and analyse their paths with R-Care.
-      </p>
-      <div className='LandingPage__buttons'>
-        <Link className='Button' to='/login'>
-          Login
-        </Link>
-        <Link className='Button inverted' to='/register'>
-          Register
-        </Link>
-      </div>
+      {companyLoading || !companies ? (
+        <Spinner />
+      ) : (
+        <div
+          style={{
+            width: '100%',
+            display: 'grid',
+            gridTemplateColumns: 'repeat(3, 1fr)',
+            gridAutoRows: 'minmax(30rem, 1fr)',
+            gridGap: '2rem'
+          }}>
+          {companies.map(c => (
+            <div
+              style={{
+                color: 'white',
+                cursor: 'pointer',
+                flexDirection: 'column',
+                background: '#7232DB',
+                borderRadius: '.5rem',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}>
+              <p>{c.name}</p>
+              <p>{c.country}</p>
+            </div>
+          ))}
+        </div>
+      )}
     </section>
   );
 };
 
-const mapStateToProps = ({ user: { user } }) => ({ user });
-const mapDispatchToProps = { signInEmployee, registerEmployee };
+const mapStateToProps = ({ company: { companies, companyLoading } }) => ({
+  companies,
+  companyLoading
+});
+const mapDispatchToProps = { fetchCompanies: fetchCompanies };
 const connector = connect(mapStateToProps, mapDispatchToProps);
 
 export default connector(LandingPage);

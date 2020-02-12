@@ -5,10 +5,10 @@ export const signInEmployee = credentials => async dispatch => {
   try {
     dispatch({ type: 'SET_USER_LOADING', payload: true });
     const {
-      data: { user, accessToken }
+      data: { employee, accessToken }
     } = await Axios.post('/employee/login', credentials);
     Axios.defaults.headers.common['Authorization'] = accessToken;
-    dispatch({ type: 'SET_USER', payload: user });
+    dispatch({ type: 'SET_USER', payload: employee });
     dispatch({ type: 'SET_ACCESS_TOKEN', payload: accessToken });
     alert('Signin successful');
     history.push('/dashboard');
@@ -21,22 +21,22 @@ export const signInEmployee = credentials => async dispatch => {
   }
 };
 
-export const registerEmployee = employee => async dispatch => {
+export const registerEmployee = employeeObj => async dispatch => {
   try {
     dispatch({ type: 'SET_USER_LOADING', payload: true });
     const {
-      data: { user, accessToken }
-    } = await Axios.post('/employee/signup', employee);
+      data: { employee, accessToken }
+    } = await Axios.post('/employee/signup', employeeObj);
     Axios.defaults.headers.common['Authorization'] = accessToken;
-    dispatch({ type: 'SET_USER', payload: user });
+    dispatch({ type: 'SET_USER', payload: employee });
     dispatch({ type: 'SET_ACCESS_TOKEN', payload: accessToken });
-    alert('Signin successful');
+    alert('Registration successful');
     history.push('/dashboard');
   } catch (err) {
     const message = err.response.data.message;
     if (message) alert(message);
     else if (Array.isArray(message)) {
-      dispatch({ type: 'SET_USER_ERRORS', payload: message });
+      dispatch({ type: 'SET_USER_ERRORS', payload: JSON.parse(message) });
     } else alert(err.message);
   } finally {
     dispatch({ type: 'SET_USER_LOADING', payload: false });
@@ -48,7 +48,7 @@ export const logOutEmployee = () => async dispatch => {
     dispatch({ type: 'RESET_COMPANY_STATE' });
     dispatch({ type: 'RESET_USER_STATE' });
     history.push('/');
-    Axios.delete('/employer/logout');
+    Axios.delete('/employee/logout');
   } catch (err) {
     const message = err.response.data.message;
     if (message) alert(message);
